@@ -21,5 +21,8 @@ public:
         else
             return nums[tmax];
         
+        // another approach was to sort the vector and remove the duplicate values using unique something
+        // and then check size if<2 return nums[0] else nums[2];
+        
     }
 };
