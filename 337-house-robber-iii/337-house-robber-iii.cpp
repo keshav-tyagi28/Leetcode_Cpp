@@ -32,9 +32,12 @@ public:
         help right= helper(root->right);
         
         int root_in= root->val+left.exclude+right.exclude;
-        int max1= max(left.include+right.include,left.exclude+right.exclude);
-        int max2= max(left.include+right.exclude,left.exclude+right.include);
-        int root_out= max(max1,max2);
+        // int max1= max(left.include+right.include,left.exclude+right.exclude);
+        // int max2= max(left.include+right.exclude,left.exclude+right.include);
+        int max1= max(left.include,left.exclude);
+        int max2= max(right.include,right.exclude);
+
+        int root_out= max1+max2;
 
         
              help obj;
