@@ -14,18 +14,33 @@ public:
                 continue;
             }
 
-            bricks -= diff; //taking the bricks needed for going to next building.
-            maxB.push(diff); //adding the number of bricks used in priority queue.
-            
-            // if bricks become negetive then there were not enough bricks. So add a ladder in place of the step where most bricks were used.
-            if(bricks < 0){
-                bricks += maxB.top(); //taking back bricks from that step
-                maxB.pop(); //As max bricks were removed so pop
-                ladders--; //1 ladder used
-            }
+                if(diff<=bricks){
+                bricks -= diff; 
+                maxB.push(diff);
+                }
+            else if(ladders>0)
+            {
+                if(maxB.size())
+                {
+                    int top=maxB.top();
+                    if(top>diff)
+                    {
+                        bricks+=top;
+                        maxB.pop();
+                        maxB.push(diff);
+                        bricks-=diff;
+                        
 
-            //if ladder is negetive then the ladder was not provided to go to next building. So we can't proceed.
-            if(ladders < 0) break;
+                    }    
+                    
+                }
+                ladders--;
+                
+                
+            }
+            else
+                    break;
+                
         }
         
         // return the present position.
