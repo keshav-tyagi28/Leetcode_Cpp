@@ -37,23 +37,27 @@ public:
        
         		vector<vector<int>>dp(n, vector<int>(n, 0));
 
+        vector<int> prev(n,0);
         for(int j=0;j<n;j++)
-            dp[n-1][j]=triangle[n-1][j];
+            prev[j]=triangle[n-1][j];
         
         for(int i=n-2;i>=0;i--)
         {
+            vector<int> cur(n,0);
             
             for(int j=i;j>=0;j--)
             {
-                int down=dp[i+1][j]+triangle[i][j];
-                int dg= dp[i+1][j+1]+triangle[i][j];
+                int down=prev[j]+triangle[i][j];
+                int dg= prev[j+1]+triangle[i][j];
                 
-                dp[i][j]=min(down,dg);
+                cur[j]=min(down,dg);
                 
             }
             
+            prev=cur;
+            
         }
-        return dp[0][0];
+        return prev[0];
         
        
     }
