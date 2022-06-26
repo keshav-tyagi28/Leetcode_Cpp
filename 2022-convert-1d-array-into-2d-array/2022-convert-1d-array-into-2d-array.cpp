@@ -5,11 +5,12 @@ public:
         int r=original.size();
        
           
-        vector<vector<int>>ans(m,vector<int>(n));
-        vector<vector<int>> vect;
+        vector<vector<int>>ans(m,vector<int>(n,0));
+    
              if(n*m != r)
-             return vect;
+             return {};
             
+        
             int x=0;
             int y=0;
         
