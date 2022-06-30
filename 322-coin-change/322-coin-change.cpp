@@ -1,27 +1,49 @@
 class Solution {
 public:
     
-    int solvetab(vector<int> &num, int x)
-{
-    vector<int> dp(x+1,INT_MAX);
-    dp[0]=0;
-    for(int i=1;i<=x;i++)
-    {
-        for(int j=0;j<num.size();j++)
-        {
-            if(i-num[j]>=0 && dp[i-num[j]]!=INT_MAX)
-                dp[i]=min(dp[i],1+dp[i-num[j]]);
-        }
-        
-    }
- 
-    if(dp[x]==INT_MAX)
-        return -1;
-    else
-    return dp[x];
 
-}
+   int f(int ind,int tar,vector<int>& coins, vector<vector<int>>&dp) 
+   {
+       
+       if(ind==0)
+       {
+           if(tar%coins[0]==0)
+               return (tar/coins[0]);
+          
+           else
+               return 1e9;
+       }
+       
+       if(dp[ind][tar]!=-1)
+            return dp[ind][tar];
+       
+       int ntake=0+f(ind-1,tar,coins,dp);
+       
+       int take=INT_MAX;
+       if(coins[ind]<=tar)
+           take=1+f(ind,tar-coins[ind],coins,dp);
+       
+       dp[ind][tar]= min(take,ntake);
+       return dp[ind][tar];
+       
+       
+   }
+    
+    
+    
+    
+    
+    
+    
+    
     int coinChange(vector<int>& coins, int amount) {
-        return solvetab(coins,amount);
+        int n=coins.size();
+        vector<vector<int>>dp(n,vector<int>(amount+1,-1));
+        int ans= f(n-1,amount,coins,dp);
+        if(ans>=1e9)
+            return -1;
+        else
+            return ans;
+    
     }
 };
